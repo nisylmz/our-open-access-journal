@@ -1,0 +1,31 @@
+name: Generate index.html
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  generate-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate index.html
+        run: |
+          echo "<!DOCTYPE html><html><head><title>Index</title></head><body>" > index.html
+          echo "<h1>Index of HTML Files</h1><ul>" >> index.html
+          for file in *.html; do
+            echo "<li><a href=\"$file\">$file</a></li>" >> index.html
+          done
+          echo "</ul></body></html>" >> index.html
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "christiancasey"
+          git config --global user.email "christiancasey86@gmail.com"
+          git add index.html
+          git commit -m "Auto-generate index.html" || exit 0
+          git push
