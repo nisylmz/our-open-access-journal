@@ -15,7 +15,7 @@ jobs:
 
       - name: Generate index.html
         run: |
-          echo "<!DOCTYPE html><html><head><title>Index</title></head><body>" > index.html
+          echo "<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Index</title></head><body>" > index.html
           echo "<h1>Index of HTML Files</h1><ul>" >> index.html
           for file in *.html; do
             echo "<li><a href=\"$file\">$file</a></li>" >> index.html
